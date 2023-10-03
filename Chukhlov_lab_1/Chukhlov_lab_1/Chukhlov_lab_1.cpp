@@ -16,7 +16,7 @@ struct CS
     string name;
     int wksh_num = 0;
     int act_wksh_num = 0; // <=workshop_num!
-    float eff = 0; // from 1 to 10
+    int eff = 0; // from 1 to 10
 };
 //void one(string x, int y, int z, bool w) // <-- that'd work if we were allowed to use global variables
 //{
@@ -52,8 +52,6 @@ struct CS
 //        }
 //    }
 //}
-
-
 int SpellCheck(string x)
 {
     if (x[0] != '0'
@@ -66,6 +64,29 @@ int SpellCheck(string x)
         and x[0] != ';'
         and x[0]) return 1;
     else return 0;
+}
+int charCheck(char x)
+{
+    if (x == '0'
+        or x == '1'
+        or x == '2'
+        or x == '3'
+        or x == '4'
+        or x == '5'
+        or x == '6'
+        or x == '7'
+        or x == '8'
+        or x == '9') return 1;
+    else return 0;
+}
+int NumCheck(string x)
+{
+    for (int i = 0; i < x.length(); i++)
+    {
+        if (charCheck(x[i])) continue;
+        else return 0;
+    }
+    return 1;
 }
 
 
@@ -81,7 +102,7 @@ void MenuCall(int a) {
     }
     else if (a == 2)
     {
-        cout << "You did't even try.\n";
+        cout << "You did't even try to type what was asked.\n";
     }
     else if (a == 3)
     {
@@ -94,6 +115,10 @@ void MenuCall(int a) {
     else if (a == 5)
     {
         cout << "You can't call it like that, sorry.\n";
+    }
+    else if (a == 6)
+    {
+        cout << "Hey, hey! One at a time!\n";
     }
     else if (a == 10)
     {
@@ -120,14 +145,18 @@ int IntCheck(string x)
 {
     try
     {
-        if (stoi(x))1 < 2;
+        if (stoi(x) or !stoi(x)) 1 < 2;
         return 1;
     }
     catch (...)
     {
-        MenuCall(2);
         return 0;
     }
+}
+int lenCheck(string x)
+{
+    if (x.length() == 1) return 1;
+    else return 0;
 }
 
 
@@ -143,12 +172,14 @@ int main()
     while (c != 0) {
         while (0 != 1) // number check
         {
-            cin >> c_0;
-            if (IntCheck(c_0))
+            //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+            getline(cin, c_0);
+            if (IntCheck(c_0) and lenCheck(c_0))
             {
                 c = stoi(c_0);
                 break;
             }
+            MenuCall(2);
         }
 
         /*PIPE ADDING*/
@@ -172,9 +203,11 @@ int main()
             while (0 != 1) // making length
             {
                 cout << i << ". ";
-                cin >> g;
-                if (IntCheck(g)) {
-                    if (stoi(g)>0)
+                //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                getline(cin, g);
+                if (IntCheck(g) and NumCheck(g)) {
+                    
+                    if (stoi(g) > 0)
                     {
                         A.len = stoi(g);
                         break;
@@ -190,8 +223,9 @@ int main()
             while (0 != 1) // making diameter
             {
                 cout << i << ". ";
-                cin >> g;
-                if (IntCheck(g))
+                //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                getline(cin, g);
+                if (IntCheck(g) and NumCheck(g))
                 {
                     if (stoi(g)>0)
                     {
@@ -205,20 +239,21 @@ int main()
                 }
             }
             i++;
-            cout << "Is the pipe under maintenance?\n";
 
-            while (0 != 1) // making maintenance
+            cout << "Is the pipe under maintenance?\n"; // making maintenance
+            while (0 != 1)
             {
                 cout << i << ". ";
-                cin >> g;
+                //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                getline(cin, g);
                 if (g == "Yes" or g == "yes" or g == "YES" or g == "yES")
                 {
-                    A.maint = "Maintenance";
+                    A.maint = "Under maintenance";
                     break;
                 }
                 else if (g == "No" or g == "no" or g == "NO" or g == "nO" or g == "yEs(sarcastic)")
                 {
-                    A.maint = "Ready_for_exploitation";
+                    A.maint = "Ready for exploitation";
                     break;
                 }
                 else cout << "YES OR NO (please)\n";
@@ -246,8 +281,9 @@ int main()
             while (0 != 1) // making workshops number
             {
                 cout << i << ". ";
-                cin >> g;
-                if (IntCheck(g))
+                //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                getline(cin, g);
+                if (IntCheck(g) and NumCheck(g))
                 {
                     if (stoi(g)>0)
                     {
@@ -265,8 +301,9 @@ int main()
             while (0 != 1) // making active workshops number
             {
                 cout << i << ". ";
-                cin >> g;
-                if (IntCheck(g)) {
+                //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                getline(cin, g);
+                if (IntCheck(g) and NumCheck(g)) {
                     if (stoi(g)>=0)
                     {
                         if (stoi(g) <= B.wksh_num)
@@ -287,18 +324,19 @@ int main()
             while (0 != 1) // making efficiency
             {
                 cout << i << ". ";
-                if (IntCheck(g))
+                //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                getline(cin, g);
+                if (IntCheck(g) and lenCheck(g))
                 {
-                    cin >> g;
-                    float f = stof(g);
-                    if (f >= 0 and f <= 10)
+                    int f = stoi(g);
+                    if (f >= 0 and f <= 5)
                     {
                         B.eff = f;
                         break;
                     }
                     else
                     {
-                        cout << "Wrong efficiency data.\n---------\nHint: the number must be between 0 and 10\n---------\n";
+                        cout << "Wrong efficiency data.\n---------\nHint: the number must be between 0 and 5\n---------\n";
                     }
                 }
             }
@@ -363,8 +401,9 @@ int main()
             {
                 while (0 != 1) // number check
                 {
-                    cin >> a;
-                    if (IntCheck(a))
+                    //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                    getline(cin, a);
+                    if (IntCheck(a) and lenCheck(a))
                     {
                         pipedet = stoi(a);
                         break;
@@ -375,7 +414,8 @@ int main()
                     while (0 != 1) // making name
                     {
                         cout << pipedet << ". ";
-                        cin >> A.name;
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, A.name);
                         if (SpellCheck(A.name)) break;
                         else cout << "You can't call it like that, sorry.\n";
                     }
@@ -387,8 +427,9 @@ int main()
                     while (0 != 1) // making length
                     {
                         cout << pipedet << ". ";
-                        cin >> g;
-                        if (IntCheck(g)) {
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g)) {
                             A.len = stoi(g);
                             break;
                         }
@@ -401,8 +442,9 @@ int main()
                     while (0 != 1) // making diameter
                     {
                         cout << pipedet << ". ";
-                        cin >> g;
-                        if (IntCheck(g))
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g))
                         {
                             A.diam = stoi(g);
                             break;
@@ -417,7 +459,8 @@ int main()
                     while (0 != 1) // making maintenance
                     {
                         cout << pipedet << ". ";
-                        cin >> g;
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
                         if (g == "Yes" or g == "yes" or g == "YES" or g == "yES")
                         {
                             A.maint = "Maintenance";
@@ -450,8 +493,9 @@ int main()
                     while (0 != 1) // making length
                     {
                         cout << i << ". ";
-                        cin >> g;
-                        if (IntCheck(g)) {
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g)) {
                             A.len = stoi(g);
                             break;
                         }
@@ -461,8 +505,9 @@ int main()
                     while (0 != 1) // making diameter
                     {
                         cout << i << ". ";
-                        cin >> g;
-                        if (IntCheck(g))
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g))
                         {
                             A.diam = stoi(g);
                             break;
@@ -474,7 +519,8 @@ int main()
                     while (0 != 1) // making maintenance
                     {
                         cout << i << ". ";
-                        cin >> g;
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
                         if (g == "Yes" or g == "yes" or g == "YES" or g == "yES")
                         {
                             A.maint = "Maintenance";
@@ -513,8 +559,9 @@ int main()
             {
                 while (0 != 1) // number check
                 {
-                    cin >> a;
-                    if (IntCheck(a))
+                    //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                    getline(cin, a);
+                    if (IntCheck(a) and lenCheck(a))
                     {
                         csdet = stoi(a);
                         break;
@@ -525,7 +572,8 @@ int main()
                     while (0 != 1) // making name
                     {
                         cout << csdet << ". ";
-                        cin >> B.name;
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, B.name);
                         if (SpellCheck(B.name)) break;
                         else cout << "You can't call it like that, sorry.\n";
                     }
@@ -537,8 +585,9 @@ int main()
                     while (0 != 1) // making workshops number
                     {
                         cout << csdet << ". ";
-                        cin >> g;
-                        if (IntCheck(g))
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g))
                         {
                             B.wksh_num = stoi(g);
                             break;
@@ -552,8 +601,9 @@ int main()
                     while (0 != 1) // making active workshops number
                     {
                         cout << csdet << ". ";
-                        cin >> g;
-                        if (IntCheck(g)) {
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g)) {
                             if (stoi(g) <= B.wksh_num)
                             {
                                 B.act_wksh_num = stoi(g);
@@ -570,10 +620,11 @@ int main()
                     while (0 != 1) // making efficiency
                     {
                         cout << csdet << ". ";
-                        if (IntCheck(g))
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g))
                         {
-                            cin >> g;
-                            float f = stof(g);
+                            int f = stoi(g);
                             if (f >= 0 and f <= 10)
                             {
                                 B.eff = f;
@@ -595,7 +646,8 @@ int main()
                     while (0 != 1) // making name
                     {
                         cout << i << ". ";
-                        cin >> B.name;
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, B.name);
                         if (SpellCheck(B.name)) break;
                         else cout << "You can't call it like that, sorry.\n";
                     }
@@ -604,8 +656,9 @@ int main()
                     while (0 != 1) // making workshops number
                     {
                         cout << i << ". ";
-                        cin >> g;
-                        if (IntCheck(g))
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g))
                         {
                             B.wksh_num = stoi(g);
                             break;
@@ -616,8 +669,9 @@ int main()
                     while (0 != 1) // making active workshops number
                     {
                         cout << i << ". ";
-                        cin >> g;
-                        if (IntCheck(g)) {
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g)) {
                             if (stoi(g) <= B.wksh_num)
                             {
                                 B.act_wksh_num = stoi(g);
@@ -631,10 +685,11 @@ int main()
                     while (0 != 1) // making efficiency
                     {
                         cout << i << ". ";
-                        if (IntCheck(g))
+                        //cin.ignore(); // this was making things worse (first symbol couldn't get read)
+                        getline(cin, g);
+                        if (IntCheck(g) and NumCheck(g))
                         {
-                            cin >> g;
-                            float f = stof(g);
+                            int f = stoi(g);
                             if (f >= 0 and f <= 10)
                             {
                                 B.eff = f;
@@ -687,9 +742,11 @@ int main()
             if (in.is_open())
             {
                 getline(in,A.name);
-                in >> A.len;
-                in >> A.diam;
-                getline(in,A.maint);
+                getline(in,line);
+                A.len=stoi(line);
+                getline(in,line);
+                A.diam = stoi(line);
+                getline(in, A.maint);
                 getline(in,B.name);
                 in >> B.wksh_num;
                 in >> B.act_wksh_num;
@@ -705,6 +762,7 @@ int main()
             cout << "c ya\n";
             break;
         }
+        else MenuCall(2);
     }
     return 0;
 }
