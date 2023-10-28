@@ -4,10 +4,17 @@
 #include "Main functions.h"
 #include "Checking tools.h"
 #include "structs.h"
+#include <Windows.h>
 using namespace std;
 
 int main()
 {
+    // setting up the console so that it looks cool
+    HANDLE  hConsole;
+    int k;
+
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 11);
     string c_0 = "1000";
     int c;
     int i = 0;
@@ -106,6 +113,17 @@ int main()
         {
             cout << "c ya";
             return 0;
+        }
+        case 8:
+        {
+            SetConsoleTextAttribute(hConsole, 255);
+            cout << 100000000 << endl;
+            SetConsoleTextAttribute(hConsole, 153);
+            cout << 100000000 << endl;
+            SetConsoleTextAttribute(hConsole, 68);
+            cout << 100000000 << endl << endl;
+            SetConsoleTextAttribute(hConsole, 11);
+            break;
         }
         default:
         {
