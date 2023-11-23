@@ -18,40 +18,7 @@ struct CS
     int act_wksh_num = 0; // <=workshop_num!
     int eff = 0; // from 1 to 10
 };
-//void one(string x, int y, int z, bool w) // <-- that'd work if we were allowed to use global variables
-//{
-//    int i;
-//    string g;
-//    cout << "\nSo you wanna add a new pipe, huh? Write, one after another, the following details:";
-//    cout << "\n1. Name\n2. Length\n3. Diameter\n4. 'Maintenance'/'Ready'\n" << endl;
-//    i = 1;
-//    cout << i << ". ";
-//    cin >> x;
-//    i++;
-//    cout << i << ". ";
-//    cin >> g;
-//    if (stoi(g)) y = stoi(g);  
-//    else y = 0;
-//    i++;
-//    cout << i << ". ";
-//    cin >> g;
-//    if (stoi(g)) z = stoi(g);
-//    else z = 0;
-//    i++;
-//    cout << i << ". ";
-//    while (0 != 1)
-//    {
-//        cin >> g;
-//        try {
-//            if (stoi(g)) w = 1;
-//            else w = 0;
-//            break;
-//        }
-//        catch (...) {
-//            cout << "Wrong.\n";
-//        }
-//    }
-//}
+
 int SpellCheck(string x)
 {
     if (x[0] != '0'
@@ -190,14 +157,9 @@ int main()
             MenuCall(10);
 
             i = 1;
-            while (0 != 1)
-            {
-                cout << i << ". ";
-                cin.ignore();
-                getline(cin, A.name);
-                if (SpellCheck(A.name)) break;
-                else cout << "You can't call it like that, sorry.\n";
-            }
+            cout << i << ". ";
+            getline(cin, A.name);
+            
             i++;
 
             while (0 != 1) // making length
@@ -271,7 +233,6 @@ int main()
             while (0 != 1) // making name
             {
                 cout << i << ". ";
-                cin.ignore();
                 getline(cin,B.name);
                 if (SpellCheck(B.name)) break;
                 else cout << "You can't call it like that, sorry.\n";
@@ -765,4 +726,4 @@ int main()
         else MenuCall(2);
     }
     return 0;
-}
+}   

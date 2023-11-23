@@ -1,134 +1,95 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <Windows.h>
+#include <map>
+#include <iterator>
+#include <vector>
 #include "Main functions.h"
 #include "Checking tools.h"
-#include "structs.h"
-#include <Windows.h>
+//#include "structs.h"
+#include <time.h>
 using namespace std;
-
 int main()
 {
+    int i = 0, id_cs = 0, id_pipe = 0;
     // setting up the console so that it looks cool
     HANDLE  hConsole;
-    int k;
 
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 11);
-    string c_0 = "1000";
-    int c;
-    int i = 0;
-    Pipe A;
-    CS B;
-    MenuCall(0);
-    while (1)
+    map <int, Pipe> pipes;
+    map <int, CS> css;
+    LogsStash(0);
+    while(true)
     {
         int counter = 0;
-        MenuCall(1);
-        c=number(c_0);
+        LogsStash(1);
+        int c=number();
 
         switch (c) // control panel
         {
-        case 1:
-        {
-            MenuCall(10);
-            PipeAdd(0,A);
-            break;
-        }
-        case 2:
-        {
-            MenuCall(20);
-            CSAdd(0,B);
-            break;
-        }
-        case 3:
-        {
-            ViewAll(A,B);
-            break;
-        }
-        case 4:
-        {
-            if (A.name[0] - '0')
+            case 1: // pipes settings
             {
-                MenuCall(40);
-                int detnum;
-                string det_string = "10";
-                detnum = number(det_string);
-                PipeAdd(detnum, A);
+                PipesSettings(id_pipe,pipes);
+                break;
             }
-            else
+            case 2: // css settings
+            {
+                CSSettings(id_cs,css);
+                break;
+            }
+            case 3: // save
             {
                 Divider();
-                MenuCall(4);
+                if (!pipes.empty() or !pipes.empty())
+                {
+                    SaveAll(pipes, css);
+                    cout << "\nSaved.\n";
+                    Record("Saved current info");
+                }
+                else cout << "\nError saving data. Check if you even have any pipes or compressor stations.\n";
                 Divider();
+                break;
             }
-            break;
-        }
-        case 5:
-        {
-            MenuCall(50);
-            if (B.name[0] - '0')
-            {
-                int detnum;
-                string det_string = "10";
-                detnum = number(det_string);
-                CSAdd(detnum, B);
-            }
-            else
+            case 4: // load
             {
                 Divider();
-                MenuCall(4);
+                    LoadInfo(pipes, css, id_pipe, id_cs);
+                    cout << "\ninfo loaded.\n";
+                    Record("info loaded");
                 Divider();
+                break;
             }
-            break;
-        }
-        case 6:
-        {
-            Divider();
-            if (A.name[0]-'0' and B.name[0]-'0')
+            case 0: // close
             {
-                SaveAll(A, B);
-                cout << "\nSaved.\n";
+                cout << "c ya";
+                return 0;
             }
-            else cout << "\nError saving data. Check if you even have any pipes or compressor stations.\n";
-            Divider();
-            break;
-        }
-        case 7:
-        {
-            Divider();
-            try
+            case 8: // Russia
             {
-                LoadInfo(A, B);
-                cout << "\ninfo loaded.\n";
+                {
+                    SetConsoleTextAttribute(hConsole, 255);
+                    cout << 100000000;
+                    SetConsoleTextAttribute(hConsole, 0);
+                    cout << 1 << endl;
+                    SetConsoleTextAttribute(hConsole, 153);
+                    cout << 100000000;
+                    SetConsoleTextAttribute(hConsole, 0);
+                    cout << 1 << endl;
+                    SetConsoleTextAttribute(hConsole, 68);
+                    cout << 100000000;
+                    SetConsoleTextAttribute(hConsole, 0);
+                    cout << 1 << endl << endl;
+                    SetConsoleTextAttribute(hConsole, 11);
+                    Record("user viewed the Russian flag!");
+                }
+                break;
             }
-            catch (...)
+            default:
             {
-                cout << "\nno data to load.\n";
+                cout << "There's no such operation, why don't you try again\n";
             }
-            Divider();
-            break;
-        }
-        case 0:
-        {
-            cout << "c ya";
-            return 0;
-        }
-        case 8:
-        {
-            SetConsoleTextAttribute(hConsole, 255);
-            cout << 100000000 << endl;
-            SetConsoleTextAttribute(hConsole, 153);
-            cout << 100000000 << endl;
-            SetConsoleTextAttribute(hConsole, 68);
-            cout << 100000000 << endl << endl;
-            SetConsoleTextAttribute(hConsole, 11);
-            break;
-        }
-        default:
-        {
-            cout << "There's no such operation, why don't you try again\n";
-        }
         }
     }
     return 0;

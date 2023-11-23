@@ -1,0 +1,35 @@
+0
+1
+1
+1
+Ready for exploitation
+1
+1
+1
+1
+Under maintenance
+2
+2
+2
+2
+Ready for exploitation
+3
+finish
+101010
+101010
+Ready for exploitation
+0
+1
+1
+1
+1
+1
+3
+2
+2
+5
+2
+finish
+301491
+101010
+5
