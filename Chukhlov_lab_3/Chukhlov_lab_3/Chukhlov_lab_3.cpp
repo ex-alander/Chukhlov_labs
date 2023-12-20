@@ -12,14 +12,15 @@
 using namespace std;
 int main()
 {
+    net work;
     int i = 0, id_cs = 0, id_pipe = 0;
     // setting up the console so that it looks cool
     HANDLE  hConsole;
-
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 11);
-    map <int, Pipe> pipes;
-    map <int, CS> css;
+
+    map <int, net::Pipe> pipes;
+    map <int, net::CS> css;
     LogsStash(0);
     while (true)
     {
@@ -31,20 +32,20 @@ int main()
         {
         case 1: // pipes settings
         {
-            PipesSettings(id_pipe, pipes);
+            work.PipesSettings(id_pipe, pipes);
             break;
         }
         case 2: // css settings
         {
-            CSSettings(id_cs, css);
+            work.CSSettings(id_cs, css);
             break;
         }
         case 3: // save
         {
             Divider();
-            if (!pipes.empty() or !pipes.empty())
+            if (!pipes.empty() or !css.empty())
             {
-                SaveAll(pipes, css);
+                work.SaveAll(pipes, css);
                 cout << "\nSaved.\n";
                 Record("Saved current info");
             }
@@ -55,10 +56,30 @@ int main()
         case 4: // load
         {
             Divider();
-            LoadInfo(pipes, css, id_pipe, id_cs);
+            work.LoadInfo(pipes, css, id_pipe, id_cs);
             cout << "\ninfo loaded.\n";
             Record("info loaded");
             Divider();
+            break;
+        }
+        case 5:
+        {
+            cout << "enter new CS you slimo\n";
+            net::CS netCS1;
+            net::CS netCS2;
+            net::Pipe netPipe;
+            work.SetCS(0, netCS1);
+            work.SetCS(0, netCS2);
+            work.SetPipe(0, netPipe);
+            netPipe.connect(netCS1, netCS2);
+            break;
+        }
+        case 6:
+        {
+            net::Pipe newpip;
+            work.SetPipe(0, newpip);
+            net::Pipe nepi = newpip;
+            cout << nepi;
             break;
         }
         case 0: // close

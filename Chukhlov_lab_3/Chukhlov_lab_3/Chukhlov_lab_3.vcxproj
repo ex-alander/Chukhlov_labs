@@ -128,7 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Chukhlov_lab_3.cpp" />
-    <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="net functions.cpp" />
+    <ClCompile Include="net_pipe.cpp" />
+    <ClCompile Include="net_cs.cpp" />
+    <ClCompile Include="Other functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Checking tools.h" />

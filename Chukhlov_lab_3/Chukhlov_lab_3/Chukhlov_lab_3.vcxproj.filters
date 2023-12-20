@@ -18,7 +18,16 @@
     <ClCompile Include="Chukhlov_lab_3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Functions.cpp">
+    <ClCompile Include="net functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="net_pipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="net_cs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Other functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

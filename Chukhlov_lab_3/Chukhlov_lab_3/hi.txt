@@ -1,0 +1,17 @@
+Name:                      1
+Length:                    1
+Diameter:                  1
+State:                     Ready for exploitation
+
+1
+1
+1
+Ready for exploitation
+Name:                      12
+Workshops number:          12
+Active workshops number:   12
+Efficiency (0-5):          1
+12
+12
+12
+1
